@@ -13,7 +13,9 @@ File.open(file_path, 'r') do |text|
   }
 end
 
-client = Mysql2::Client.new(host: 'localhost', username: 'mysql_user', password: 'mysql_user')
+user_name = ENV['MYSQL_USER_DEVELOPMENT']
+password = ENV['MYSQL_PASS_DEVELOPMENT']
+client = Mysql2::Client.new(host: 'localhost', username: user_name, password: password)
 query = 'use weather_report_development;'
 results = client.query(query)
 
