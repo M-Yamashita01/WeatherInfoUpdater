@@ -38,6 +38,6 @@ $ ruby location_weather_insert.rb
 ```
 
 補足：
-地域はお天気Webサービスに登録してある地点を使用している。 
-また天気情報はお天気Webサービスから取得している。 
+地域はお天気Webサービスに登録してある地点を使用している。  
+また天気情報はお天気Webサービスから取得している。  
 http://weather.livedoor.com/weather_hacks/webservice
