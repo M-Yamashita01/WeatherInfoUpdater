@@ -21,5 +21,7 @@ class CurrentWeather
   attr_accessor :rain_3h
   attr_accessor :snow_1h
   attr_accessor :snow_3h
+  attr_accessor :sunrise
+  attr_accessor :sunset
   attr_accessor :country_code
 end
