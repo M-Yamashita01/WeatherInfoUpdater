@@ -1,13 +1,14 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    debase (0.2.2)
+    debase (0.2.4.1)
       debase-ruby_core_source (>= 0.10.2)
     debase-ruby_core_source (0.10.5)
     mysql2 (0.5.2)
-    rake (12.3.2)
+    rake (12.3.3)
     ruby-debug-ide (0.7.0)
       rake (>= 0.8.1)
+    timers (4.3.0)
 
 PLATFORMS
   ruby
@@ -16,6 +17,7 @@ DEPENDENCIES
   debase
   mysql2
   ruby-debug-ide
+  timers
 
 RUBY VERSION
    ruby 2.6.3p62
