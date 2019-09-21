@@ -19,6 +19,42 @@ class CurrentWeathersGetter
     current_weather.city_id = location_weather['id']
     current_weather.city_name = location_weather['name']
 
+    current_weather.weather_group_id = location_weather['weather'][0]['id']
+    current_weather.weather_icon = location_weather['weather'][0]['icon']
+    current_weather.weather_main = location_weather['weather'][0]['main']
+    current_weather.weather_description = location_weather['weather'][0]['description']
+
+    current_weather.temperature = location_weather['main']['temp']
+    current_weather.pressure = location_weather['main']['pressure']
+    current_weather.humidity = location_weather['main']['humidity']
+    current_weather.temperature_min = location_weather['main']['temp_min']
+    current_weather.temperature_max = location_weather['main']['temp_max']
+    current_weather.wind_speed = location_weather['wind']['speed']
+    current_weather.wind_degree = location_weather['wind']['deg']
+    current_weather.cloudiness = location_weather['clouds']['all']
+
+    if location_weather.key?('rain')
+      if location_weather['rain'].key?('1h')
+        current_weather.rain_1h = location_weather['rain']['1h']
+      end
+      if location_weather['rain'].key?('3h')
+        current_weather.rain_3h = location_weather['rain']['3h']
+      end
+    end
+
+    if location_weather.key?('snow')
+      if location_weather['snow'].key?('1h')
+        current_weather.snow_1h = location_weather['snow']['1h']
+      end
+      if location_weather['snow'].key?('3h')
+        current_weather.snow_3h = location_weather['snow']['3h']
+      end
+    end
+
+    current_weather.sunrise = location_weather['sys']['sunrise']
+    current_weather.sunset = location_weather['sys']['sunset']
+    current_weather.country_code = location_weather['sys']['country']
+
     return current_weather
   end
 

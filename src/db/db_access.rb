@@ -25,15 +25,15 @@ class DBAccess
     statement.execute(weather_group_id, weather_icon, weather_main, weather_description, current_datetime, current_datetime)
   end
 
-  def insert_current_weather_data(acquired_datetime, weathermap_location_index, weather_group_index, temperature, pressure,
+  def insert_current_weather_data(weathermap_location_index, weather_group_index, temperature, pressure,
                                  humidity, temperature_min, temperature_max, wind_speed, wind_degree, cloudiness, rain_1h, rain_3h,
-                                 snow_1h, snow_3h, country_code)
+                                 snow_1h, snow_3h, sunrise, sunset, country_code)
     current_datetime = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-    statement = @client.prepare('INSERT INTO current_weather_datas (acquired_datetime, weathermap_location_index, weather_group_index, temperature, pressure,
+    statement = @client.prepare('INSERT INTO current_weather_datas (acquired_datetime, weathermap_location_id, weather_group_id, temperature, pressure,
       humidity, temperature_min, temperature_max, wind_speed, wind_degree, cloudiness, rain_1h, rain_3h,
-      snow_1h, snow_3h, country_code, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
-    statement.execute(acquired_datetime, weathermap_location_index, weather_group_index, temperature, pressure,
+      snow_1h, snow_3h, sunrise, sunset, country_code, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+    statement.execute(current_datetime, weathermap_location_index, weather_group_index, temperature, pressure,
       humidity, temperature_min, temperature_max, wind_speed, wind_degree, cloudiness, rain_1h, rain_3h,
-      snow_1h, snow_3h, country_code, current_datetime, current_datetime)
+      snow_1h, snow_3h, sunrise, sunset, country_code, current_datetime, current_datetime)
   end
 end
