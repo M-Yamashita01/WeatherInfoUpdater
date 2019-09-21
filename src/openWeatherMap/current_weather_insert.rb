@@ -18,7 +18,7 @@ def insert_weathermap_location(db_access, current_weather)
 end
 
 def insert_weather_group(db_access, current_weather)
-  query = "select id from weather_groups where weather_group_id = #{current_weather.weather_group_id};"
+  query = "select id from weather_groups where weather_group_id = #{current_weather.weather_group_id} and weather_icon = #{current_weather.weather_icon};"
   results = db_access.execute_query(query)
 
   if results.size.zero?
