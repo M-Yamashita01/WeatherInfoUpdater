@@ -1,7 +1,11 @@
 require_relative 'current_weathers_getter'
 require_relative 'current_weather_list'
 require_relative 'current_weather'
+require_relative 'city_id_reader'
 require_relative '../db/db_access'
+
+require 'bundler/setup'
+require 'timers'
 
 def insert_weathermap_location(db_access, current_weather)
   query = "select id from weathermap_locations where city_id = #{current_weather.city_id};"
@@ -18,7 +22,7 @@ def insert_weathermap_location(db_access, current_weather)
 end
 
 def insert_weather_group(db_access, current_weather)
-  query = "select id from weather_groups where weather_group_id = #{current_weather.weather_group_id} and weather_icon = #{current_weather.weather_icon};"
+  query = "select id from weather_groups where weather_group_id = #{current_weather.weather_group_id} and weather_icon = \"#{current_weather.weather_icon}\";"
   results = db_access.execute_query(query)
 
   if results.size.zero?
@@ -40,14 +44,27 @@ def insert_current_weather_data(db_access, current_weather, location_id, weather
                                         current_weather.country_code)
 end
 
-current_weathers = CurrentWeathersGetter.new
-current_weather_list = current_weathers.get_weathers
+puts 'start insert'
 
 db_access = DBAccess.new
 query = 'use weather_report_development;'
 db_access.execute_query(query)
-current_weather = current_weather_list.get
-location_id = insert_weathermap_location(db_access, current_weather)
-weather_group_id = insert_weather_group(db_access, current_weather)
-insert_current_weather_data(db_access, current_weather, location_id, weather_group_id)
+
+city_id_reader = CityIdReader.new
+city_id_list = city_id_reader.read_city_id('JP')
+current_weather_getter = CurrentWeathersGetter.new
+
+timers = Timers::Group.new
+
+city_id_list.each do |city|
+  current_weather = CurrentWeather.new
+  timers.after(1) { current_weather = current_weather_getter.get_weather(city['id']) }
+  timers.wait
+
+  puts current_weather.city_name
+  location_id = insert_weathermap_location(db_access, current_weather)
+  weather_group_id = insert_weather_group(db_access, current_weather)
+  insert_current_weather_data(db_access, current_weather, location_id, weather_group_id)
+end
+
 puts 'success'
