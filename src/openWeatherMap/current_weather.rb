@@ -24,4 +24,30 @@ class CurrentWeather
   attr_accessor :sunrise
   attr_accessor :sunset
   attr_accessor :country_code
+
+  def initialize
+    @longitude = 0
+    @latitude = 0
+    @city_id = 0
+    @city_name = ''
+    @weather_group_id = 0
+    @weather_icon = 0
+    @weather_main = ''
+    @weather_description = ''
+    @temeprature = 0
+    @pressure = 0
+    @humidity = 0
+    @temeprature_min = 0
+    @temeprature_max = 0
+    @wind_speed = 0
+    @wind_degree = 0
+    @cloudiness = 0
+    @rain_1h = 0
+    @rain_3h = 0
+    @snow_1h = 0
+    @snow_3h = 0
+    @sunrise = 0
+    @sunset = 0
+    @country_code = ''
+  end
 end
